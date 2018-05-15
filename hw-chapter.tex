@@ -1,0 +1,498 @@
+\chapter{Reduced Urban Heat Island intensity under warmer conditions}
+\label{chap:hw}
+
+In the previous chapters, we presented case studies from two cities. These studies in many ways complement existing UHI literature, but also differ from conclusions of other field studies. 
+The inconsistency in both methods and results
+underscores the need for a systematic, quantitative investigation of the relationship between the UHI and temperature across multiple cities and over different time scales. 
+In this Chapter, we perform such a study,  originally published in the journal Environmental Research Letters \citep{scott2018reduced}, by investigating how the UHI responds to increases in temperature, over several timescales as well as with space. We adopt a large sample, empirical approach in order to characterize temperature dependency of the UHI. We choose a simple UHI metric, $\Delta T$ between an urban and a rural station that is based on daily minimum or maximum temperature (though we focus primarily on minimum daily temperature)
+% though we recognize that multivariate heat indices are also valuable when studying UHI health impacts, 
+and we use exclusively \textit{in situ} meteorological records. 
+
+\section{Data and Methods} \label{sec:Methods}
+\subsection{Data}
+%{\bf Data} 
+We analyse temperature observations from the Global Historical Climatology Network (GHCN), a network of land-based observation stations that have passed a quality assurance procedure \citep{ghcn}. % [25]. %
+The GHCN integrates different observation networks, meaning that different instruments are used, and readings of minimum-maximum thermometers may occur at different times of day.
+To limit the impact differences in instruments or time of methods, our analysis focuses on data between 2000 and 2015, when most stations make measurements in the morning and there are fewer instrumentation changes \citep{menne2009us}. The year 2000 is not  pivotal but rather reflects a reasonable balance between having a long climate record while limiting potential observational biases; we have found similar results using a longer period of 1985-2015. %and use the XXX instrument [REF].  
+
+% We analyse daily summer (June, July and August) that has not been flagged by the quality assurance procedures.
+\subsection{Site Selection}
+%\bf Site Selection} 
+The weather stations used in our analysis were selected using three criteria: 1) population, 2) satellite brightness index (BI), and 3) data availability.
+Population data were obtained from http://simplemaps.com/resources/world-cities-data. The satellite nighttime brightness index (BI) is used to classify urban and rural stations. It comes  from the  Defense Meteorological Satellite Program's Operational Linescan System \cite{dmspols}
+and was obtained from https://ngdc.noaa.gov/eog/dmsp/downloadV4composites.html. BI is a unit-less value representing digital numbers ranging from zero to 63, where zero represents no light received by the OLS sensor and 63 represents sensor saturation.
+
+In each US metropolitan area with an urban population above 500 000, we selected two stations---one urban and one rural---from within a 30 kilometer radius of the urban center. Urban stations were selected as having the highest BI if data availability exceeded 75\% data. The lowest BI value was 47, and all but four cities had a BI of 63.  %The station with the largest BI and with data availability above 75\% during 1985-2015 was selected as the urban station. %For our primary analysis 
+The rural station was selected as the station with lowest BI and more than 75\% data between 2000-2015. %(1985-2015 for calculating 30 year trends)
+% 1985-2015 
+Airport stations were excluded, as were urban stations beyond
+% 0.25$^\circ$ 
+27 kilometers from the urban center.  If the difference in BI between selected urban and rural stations ($\Delta BI$) was less than 25, then the city is rejected from the analysis.  This selection method  rejected 16 cities, yielding 54 cities across the US (see Fig.~\ref{fig:s01} for spatial distribution). 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS01.eps}
+\caption{The difference between nighttime UHI $\Delta T_{min} $ and daytime $\Delta T_{max}$ is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. }
+\label{fig:s01}
+\end{figure}
+
+We find that our algorithm accurately identifies urban and rural stations according to the National Land Cover Database (NLCD) landcover classification \cite{homer2015completion}, computed using Google EarthEngine's Python API \cite{gorelick2017google}. The urban stations selected by this method are almost entirely (48/54) in developed land, with the remaining 6 being located in urban parks (2), near enough to water to be misclassified (1), or on the outskirts of town (3). Most of the rural stations (45/54) are located in undeveloped locations; the remainder are located in open land (5), low development intensity land (3), or medium development intensity land (1). 
+
+The sensitivity of the UHI calculations to choice of stations was tested by repeating the analysis for multiple station pairings for each city. To test sensitivity to rural selection, the urban station in each pairing was as described above, but different stations were used for the rural station in each pair. We removed the criteria that there was at least 75\% data between 2000 and 2015 and selected any station for which $\Delta BI > 25$. To test sensitivity to urban station selection, the rural station was selected as above. We removed the criteria that there was at least 75\% data between 2000 and 2015 and selected any station for which $\Delta BI > 25$ and the surrounding land cover class is developed, as classified by NLCD. This resulted in an average of 11 rural stations (urban-rural pairs) per city and 2.7 urban stations. We calculate one statistic per each station pair. 
+
+\subsection{UHI intensity}
+%{\bf UHI Intensity}  
+The intensity of the UHI, $\Delta T$, for each city, is calculated as the difference between the temperatures for an urban $T_u$ and rural $T_r$ station, i.e., $\Delta T = T_{u} - T_{r}$. As in \cite{zhou2010atlanta}, we calculate $\Delta T$ using either daily-minimum temperatures or daily-maximum temperatures, referred to as the nighttime or daytime UHI. While minimum temperature may not occur at the same time of day in both urban and rural areas, there is no nationwide hourly, \textit{in situ} temperature dataset available fpr both rural and urban areas. While this may bias a calculation of the UHI magnitude, this bias will be constant over time and is thus unlikely to affect our analysis of UHI change over time. 
+%{\bf [ Add comments on use of daily min or max Temperature]}.  
+The nighttime UHI is larger than the daytime UHI for most (35/54) of the cities considered  (see Fig.~\ref{fig:s01}), so we focus mainly on the nighttime UHI. Unless otherwise stated the $\Delta T$ shown corresponds to difference in daily minimum temperatures. We also compare urban and rural temperatures to their average, $T_{a} = (T_u + T_r)/2$. %We compute this temperature to eliminate noise from instrument and other random errors and local variability. 
+% We seek the true relationship between urban and rural temperature given hotter temperatures. This is not the same as the relationship given hot urban temperatures or given hot rural temperatures, both of which are affected by random error which can bias results. Put plainly, if the hottest urban nights are selected, this makes it more likely that other locations and thus rural locations are less hot. By contrast, if the hottest rural nights are selected, this makes it more likely that urban locations are less hot. Instead, to identify the heat events, we use $T^{s}$. If we suppose that local temperatures are a function of synoptic temperature, noise representing instrument and other errors, as well as microclimate effects like the UHI, then $T_u = T_{a} + \Delta T + \epsilon_u$ where $\Delta T$ is the UHI, $T_{a}$ is the synoptic temperature, and $\epsilon_u$ is urban noise and similarly,  $T_r =  T_{synoptic} + \epsilon_r$. Then 
+%\[
+% \overline{T_u, T_r} = T_{a} + \overline{\epsilon_u, \epsilon_r} + \overline{UHI}  \] 
+% \[
+% = T_{a} + \overline{UHI}= T^{\prime} \]
+%as the random noise will average to zero. For a constant UHI, this will average to the synoptic temperature $T_{a}$. 
+\subsection{Analysis}
+{%\bf Analysis}
+The relationship between $T_r$, $T_u$, $T_{a}$ and $\Delta T$ is examined over three different temporal scales as well as over space. First, we explore daily variability by examining the relationship between daily $T_r$ and $T_u$, using June, July, and August (JJA) data (2000-2015), and compare both to $T_{a}$. Second, we examine variability during extreme heat by examining the variations in $\Delta T$ and $T_{a}$ for 15 nighttime heat events in each city. These events are the hottest 15 nights for $T_{a}$, though we repeat this analysis for the hottest 10 nights for $T_u$ and $T_r$ and the first principal component of the system of $T_u$ and $T_r$ (representing what causes most of the variance in both temperatures) in the Supplementary Materials.
+Third, we examine interannual variability by looking at the 30-year (1985-2015) linear trends in $T_r$ and $ T_u$. Finally, we examine geospatial variability by looking at the relationship between 30-year mean JJA $T_r$ and $T_u$ for each city. 
+
+In each of the above cases, we calculate the relationship between $T_u$, $T_r$, and $T_{a}$ using 
+ %the linear correlation coefficient $r$ between $\Delta T$ and $T_{r}$, and
+%the linear, least squares regression of the form:
+the linear, total least squares regression \citep{allen2003estimating}  of the form:
+\begin{equation} \label{eq1}
+T_u = m\cdot  {T_{r}} + c, 
+\end{equation}
+where the slope $m$ represents the change in $T_u$ per increase in $T_{r}$ and $c$ is a constant. 
+The regression coefficient $m$ can be interpreted as the sensitivity or response of the urban heat island changes to a change in  regional temperature.  
+The total least squares regression is an errors-in-variable method that differs from an ordinary least squares regression in that it considers errors or noise in both dependent and independent variable \citep{allen2003estimating}. As a result, the slope it produces is insensitive to whether $T_u$ or $T_r$ is used as an input variable. This is in contrast to the ordinary least squares method, which may introduce an artificial bias called regression dilution bias by assuming that the dependent variable is error-free \citep{pitkanen2016artificial}. 
+
+We assess the statistical significance of this slope by testing against the null hypothesis that $m=1$, that is, urban and rural areas respond similarly to changes in temperature, using a Student's T-test. We also report the sample mean $\mu$ and the standard deviation $\sigma$ of $m$.
+% , and a p-value $p$, determined using the Student's T-test.
+
+% we use the first principal component of the system of urban and rural temperature or $T^\ast$ to represent synoptic temperature. $T^\ast$ is calculated by performing a singular value decomposition of the matrix 
+%\[X = \left[\begin{array}{c}
+%    T_{r}  - \overline{T}_r\\
+%    T_{u} - \overline{T}_u \end{array} \right]
+% \]
+%into $X = u s V$. This decomposition reduces our temperature system into two principal components which vary with time. The first component (here, $V_0 = T^\ast$) is responsible for the largest amount of variability in the data, which corresponds physically with synoptic weather. By examining the extrema of $T^\ast$ (as its sign is determined by the sign of the eigenvalue, we select for minima when the eigenvalue is negative and vice versa), we analyse heat events which are independent of urban or rural location.  
+\subsection{Synoptic classification}
+%{\bf Synoptic classifications} 
+To examine if there is a connection between the  $\Delta T$ and weather conditions we use the synoptic weather classification in \cite{sheridan2002redevelopment}, which 
+classifies air masses into moist and dry tropical, polar, and moderate air masses based on each weather station's data. In this study, we group together dry marine, dry polar, and dry tropical weather types as "dry", and we group moist marine, moist polar, moist tropical, and moist tropical plus weather types as "moist". The classification is available for 46 of the cities examined in this study and is downloaded from http://sheridan.geog.kent.edu/ssc.html (the remaining stations are not in the weather station network used by \cite{sheridan2002redevelopment}). We calculate the sensitivity of temperature to weather type for rural versus urban areas 
+by subtracting the average temperature of moist nights from that of dry nights in each city, $\overline{T}( {moist})  -  \overline{T}( {dry} ) $ and compare this in both urban and rural areas. Additionally, we assess significance of the difference between moist and dry nights using a two sample t-test that takes the differing sample size of moist and dry nights into account. 
+ 
+%In all cases, we also report the mean $\mu$, the standard deviation $\sigma$, and a p-value $p$, determined using a Student's T-test.
+
+%{\bf Statistics} The statistical significance of our results is examined using a t-test that adjusts for lag-1 temporal autocorrelation for daily results, and a standard t-test for other results. Autocorrelation is not considered for the heatwave results as we restrict events to be unique by requiring an event separation of at least three days. 
+
+%{\bf Code availability} The computer code used to generate these results was written for Python 2.7.11 and is available on Github at github.com/gottscott/heat. This Python code uses  the following libraries: NumPy 1.10.4, SciPy 0.17.1, Ulmo 0.8.3, Pandas 18.1, Cartopy 0.13.1 and matplotlib 1.5.1.
+
+\section{Results}
+
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig01.eps} 
+\caption{Test.}%\caption{Left column: daily minimum 
+%$T_r$ versus 
+%$T_u$ for data from JJA 2000-2015 for 
+%%a) Albuquerque, d) Minneapolis, and g) Baltimore. Middle column: daily-minimum $T_a$ versus $T_u$ for 
+%%b) Albuquerque, e) Minneapolis, and h) Baltimore.
+%%Right column: daily-minimum $T_a$ versus $T_r$ for 
+%%c) Albuquerque, f) Minneapolis, and i) Baltimore.
+%(a) Albuquerque, (d) Minneapolis, and (g) Baltimore. Middle column: daily-minimum $T_a$ versus $T_u$ for 
+%(b) Albuquerque, (e) Minneapolis, and (h) Baltimore.
+%Right column: daily-minimum $T_a$ versus $T_r$ for 
+%(c) Albuquerque, (f) Minneapolis, and (i) Baltimore.
+%The solid line shows the total least squares fit to the data with slope $m_{daily}$ and dashed line shows the 1-1 line.  
+%
+%%(g) Map of cities analyzed, with color showing the slope $m$. 
+%}
+\label{fig:jja4}
+\end{figure}
+
+We first examine the relationship between minimum daily rural temperature $T_{r}$ and minimum daily urban temperature $T_u$ on daily time scales. The left column in Fig.~\ref{fig:jja} shows this relationship for Albuquerque, Minneapolis, and Baltimore for JJA 2000-2015. Although the details differ, for each city we see evidence of the UHI as $T_u > T_r$ on most nights. We examine $m_{daily}$, the sensitivity of how $T_u$ changes with $T_r$ (Eq.~\ref{eq1}) for each city. While it may be expected that during warmer conditions we see differences between $T_u$ and $T_r$ amplified, instead $m_{daily}$ is less than one in each case, indicating that $T_u$ and $T_r$ become more similar as $T_r$ increases. Thus, nighttime heat is associated with lower urban-rural thermal differences. 
+This raises the question of whether the observed phenomena is driven by urban changes, rural changes, or perhaps both. To examine this, we look at the relationship between average temperature $T_{a}$ and $T_u$ in the middle column of Fig.~\ref{fig:jja4}. The slope of the regression shows that urban temperatures increases at the same rate as average temperature. By contrast, $T_r$ becomes more similar to $T_{a}$ on hotter nights in each city (Fig.~\ref{fig:jja4}, right column): their slopes are all greater than one, indicating that the urban heat island decreases under warmer conditions due to changes in rural temperatures.
+
+We now expand this analysis to 54 cities across the US. The statistical distributions of $m_{daily}$ %, the sensitivity of how $T_u$ changes with $T_r$ (Eq.~\ref{eq1}), 
+are shown in  Fig.~\ref{fig:histogram4}a for all cities. In most cities (38/54), $m_{daily}< 1$, meaning that the urban increase is less then the rural increase during warmer conditions.  Nationwide, the average response is $\overline{m}_{daily} = 0.88$. 
+ That is, $T_u$ increases on average by only about 0.9$^\circ$ C for every degree increase in daily $T_r$. 
+The full range of the distribution is $0.11 \leq m_{daily} \leq 1.44 $ which is statistically different from 1 ($p =0.002 $).
+%%%%%%%%% Rewrite
+For 16 cities, $m_{daily} >1$, meaning that the UHI increases under warmer conditions. These cities are distributed equally across climate zones (Fig.~\ref{fig:s02}), so their differing behavior is not due to them being in different climate zones. 
+For 10 of the 16 cities where $m_{daily} >1$, the urban weather station is located farther than 10km from the city center or located in an area with less-developed land cover types (low to no intensity of development). Removing these cities yields $\overline{m}_{daily} = 0.83$, demonstrating that microclimate effects impact how $\Delta T$ changes with heat and explains why cities with increasing UHIs in warmer conditions differ. 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig02.eps} 
+\caption{
+Histograms of $m_{daily}$, slope of $T_u$ versus $T_r$ relationship  for (a) June, July, August (JJA) daily minimum temperatures, (b) JJA anomaly daily minimum temperatures, (c) JJA daily maximum temperatures, (d) December, January, February (DJF) daily minimum temperatures, (e) March, April, May (MAM) daily-minimum temperatures, and (f) September, October, November (SON) daily-minimum temperatures.  The distribution mean $\overline{m}_{daily}$ and range are listed in each plot.  
+}
+\label{fig:histogram4}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS02.eps}
+\caption{As in Fig.~\ref{fig:s01} but for the distribution of $m_{daily}$. %is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. 
+\label{fig:s02}
+}
+\end{figure}
+
+The above result that $\Delta T$ decreases overall during warmer conditions is robust. Repeating this analysis with daily anomalies calculated with respect to each year's JJA mean yields a mean sensitivity similar to the raw temperature values $\overline{ m}_{daily}^\prime  = 0.93 $ ($0.1\leq m_{daily}^\prime \leq 1.92$), see Fig.~\ref{fig:histogram4}b. This confirms that the decrease of $\Delta T$ during warmer conditions is due to day-to-day variability rather than interannual trends.
+Additionally, a similar relationship between $T_r$ and $T_u$ is also found for daytime (maximum daily) temperatures (Fig.~\ref{fig:histogram4}c), for other seasons (Fig.~\ref{fig:histogram4}d-f), and when a longer period is used (1985-2015, not shown). Similarly, varying the weather station selection does not affect the overall result: we find $\overline{m}_{daily} = 0.84$ when varying urban stations and $\overline{m}_{daily} = 0.95$ when varying rural stations (Fig.~ \ref{fig:s03}, \ref{fig:s04}). In each case, the mean change is close to 0.9 for day, night, and for all seasons. 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS03.eps}
+\caption{Distribution of slope $m_{day}$ in each city when urban station selection is varied. Cities are ordered by increasing mean urban station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. }
+\label{fig:s03}
+\end{figure}
+
+%S3
+%rural slope sensitivity analysis
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS04.eps}
+\caption{As in Fig.~\ref{fig:s03} but for varying rural station selection. Cities are ordered by increasing mean rural station temperature going left to right.
+%Distribution of slope $m_{day}$ in each city when rural station selection is varied by dropping the data availability requirement for rural stations. Cities are ordered by increasing mean rural station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. 
+\label{fig:s04}
+}
+\end{figure}
+
+
+%The preceding analysis considered all JJA days, regardless of temperature. 
+It is possible the $T_r$-$T_u$ relationship may differ during periods of extreme heat, so we next examine how the UHI intensity $\Delta T$ evolves during an extreme heat event. We first consider Baltimore, as the change in the UHI during a heatwave in Baltimore has been examined by \cite{li2013synergistic}, \cite{li2014effectiveness} and \cite{li2015contrasting}. Fig. \ref{fig:hw4}a, b shows the temporal variation of $T_a$ and $\Delta T$ for the 15 hottest nights (heat event night zero) in Baltimore during 2000-2015 (colored lines). 
+$T_a$ rises until heat event night zero and decreases afterwards (Fig. \ref{fig:hw4}a). In contrast, $\Delta T$ decreases before night zero and increases sharply after (Fig. \ref{fig:hw4}b). Thus during the four nights before and after these heat events there is a decrease in $\Delta T$. 
+Averaging the fifteen events to form a composite event for both $T_a$ and $\Delta T$ (Fig. \ref{fig:hw4}a, b, black curves) shows that the average increase in $T_a$ for heat extremes in Baltimore is 
+%7.2$^\circ$C with a corresponding decrease of $\Delta T$ by -2.6$^\circ$ C. 
+5$^\circ$C with a corresponding decrease of $\Delta T$ by 0.1$^\circ$ C. 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig03.eps} 
+
+%\includegraphics[width=.9\textwidth]{rnw_chapter3/figures/figure2a_2d.eps}
+%\includegraphics[width=.9\textwidth]{rnw_chapter3/figures/figure2e_2f.eps}
+%\includegraphics[width = .9\textwidth]{rnw_chapter3/figures/figures/avg_hw_map.pdf}
+\caption{Heat events: (a) temporal evolution of $T_a$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and (b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_a$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+% The sensitivity of $T_u$ to $T_r$ on the 150 hottest nights for each city, $m_{hw}$, is  e) mapped and f) as a histogram. Cities for which $p>0.05$ have a smaller radius.
+}
+\label{fig:hw4}
+\end{figure}
+
+This result differs from the conclusions of \cite{li2013synergistic}, who also examined heat extremes in Baltimore. They considered a single event (5-14 June 2008), during which $\Delta T$  increases during the event. This event is included in our analysis in Fig.~\ref{fig:hw4}a,b and we find that its behavior is not characteristic as most of the events we find exhibit a decreasing $\Delta T$. Thus, our conclusions differ from \cite{li2013synergistic} because their event is atypical. %Additionally, we find that when we add additional heatwaves, 
+%However, this event is not one of the 10 highest magnitude events of the rural station, for either $T_{min}$ or $T_{max}$, and its behavior is not characteristic.%appears to be an outlier.
+
+Composite heat events from each city are shown in Fig.~\ref{fig:hw4}c and d.
+%Can you turn this into a symmetrical statement, e.g., "
+In 19 cities, $\Delta T$ decreases by more than one degree during the heat event (between four days prior and the heat event night zero), in 29 cities, $\Delta T$ changes by less than one degree, and in six cities, $\Delta T$ increases by more than one degree.
+The distribution of the average change of $\Delta T$ during extreme heat, $\Delta T_{hw}$, is shown in  Fig.~\ref{fig:s05} and the average across all cities is $\overline{\Delta T}_{hw} = -0.9$. This average decrease in $\Delta T$ is sufficient to reduce $\Delta T$ to below zero on heat event day zero in 18/54 cities, meaning that one third of the examined cities are slightly cooler than surrounding rural areas during the hottest nights. 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS05.eps}
+\caption{As in Fig.~\ref{fig:s01} but for the temperature change of $\Delta T$ during heat events ($\Delta T$ on heat event day zero minus $\Delta T$ four days prior). %as a) map and b) histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed.
+\label{fig:s05}
+ }
+\end{figure}
+
+% Heatwaves selected using T_u
+% S4
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS06.eps}
+\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_u$. %: a) Temporal evolution of $T_u$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_u$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+\label{fig:s06}
+}
+\end{figure}
+
+% Heatwaves selected using T_r
+% S5
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS07.eps}
+\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_r$. 
+%: a) Temporal evolution of $T_r$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_r$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+\label{fig:s07}
+}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS08.eps}
+\caption{As in Fig.~\ref{fig:s07} but for 15 heat events selected using PC1, the first principal component of $T_u$ and $T_r$. %: a) Temporal evolution of PC1 during events for Baltimore (colors) and their mean (dashed black line), b) Temporal evolution of $T_r$ for the 15 events for Baltimore (colors) and their mean (dashed black line) and c) temporal evolution of $\Delta T$ for those events. d) Temporal evolution of PC1 averaged across the events for each city and the sample mean (heavy black line), e) Temporal evolution of $T_r$ averaged across the events for each city and the sample mean (heavy black line), and (f) as in (c) and (d) but for $\Delta T$. 
+\label{fig:s08}
+}
+\end{figure}
+
+Cities with UHIs that decrease the most during heat events tend to have larger $m_{daily}$ (the correlation between $m_{daily}$ and $\Delta T_{hw}$ is $r =0.7 $) and 4 of the 6 cities which have an increasing UHI on heat event day zero are also cities for which $m_{daily} >1$. This shows consistency in our results and suggests the same mechanism drives changes in $\Delta T$ on daily timescales as well as during periods of extreme heat, and also that the microclimate of urban stations can affect both metrics. 
+%The result also holds for less extreme hot periods in most cities: during the 150 hottest nights, the sensitivity $m_{hw}$ of $T_u$ to $T_r$ ranges from -.52 to 1.38, with $\overline{m}_{hw} = 0.58$ (Fig.~\ref{fig:hw4}e, f). 
+
+How UHIs respond to heatwave will depend on the method used for selecting heat events. 
+We repeat Fig.~\ref{fig:hw4} by selecting heat events using the hottest urban nights (Fig.~\ref{fig:s06}) and the hottest rural nights (Fig.~ \ref{fig:s07}) because when it is hot in one location, it may be less likely to be hot in the second location.
+As expected, the decrease of $\Delta T$ is strongest when selecting using the hottest rural nights. Similarly, an increase of $\Delta T$ is observed when selecting the hottest urban nights. However, this increase of $\Delta T$ conditioned on hot urban nights is less than the decrease of $\Delta T$ conditioned on hot rural nights. Additionally, when we selecting events using the first principal component of temperature (Fig.~\ref{fig:s08}), we also see a decrease of $\Delta T$ during heat events.  We conclude that the decrease of $\Delta T$ during heat events is supported by a variety of heat event selection methods. 
+
+Given the above robust relationship between $\Delta T$ and $T_a$, an obvious question is what is the cause.  It has been suggested that local feedbacks in wind \citep{haeger1999advection} and moisture \citep{li2013synergistic} may modulate the intensity of urban heating. 
+Alternatively, synoptic weather systems could modify the intensity of the heat island by changing humidity, cloudiness, and outgoing longwave radiation. Dry conditions allow rural areas to radiatively cool faster than urban areas, so increasing humidity results in a larger $T_r$ and decreased $\Delta T$. 
+%Using the spatial synoptic weather classification in \cite{sheridan2002redevelopment},
+To investigate this, we compute the average $\Delta T$ on moist nights, $\Delta T _{moist} = \overline{T}_{u} (moist) - \overline{T}_{r} (moist) $, and compare this with the average $\Delta T$ on dry nights, $\Delta T _{dry} = \overline{T}_{u} (dry) - \overline{T}_{r} (dry) $. The distribution of $\Delta T_{moist}$ and $\Delta  T_{dry}$ from each city is shown in Fig.~\ref{fig:synoptic4}a.
+%In most regions there is a tendency for humid nights to be hotter than dry nights; this difference is significant in most cities (39/46 or 85\%).  
+%That is, $T_{moist} > T_{dry}$ for both urban and rural environments.
+We see that when the surrounding air mass is dry, $\Delta T$ tends to be larger: nationwide, $\overline{ \Delta T}_{{dry}}- \overline{\Delta T}_{	{moist}} = 0.48$ $^\circ$ C. % (the standard deviation is $\sigma \left( T_{dry} -  T_{moist}\right) = 1.18$ $^\circ$ C). 
+While small, this difference is statistically significant in most cities (29/46 or 63\%). 
+Thus, as has been found in \cite{sheridan2000evaluation} and \cite{hardin2017urban}, we find weather type as defined in \cite{sheridan2002redevelopment} to be an important factor in regulating $\Delta T$.
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig04.eps}
+\caption{Influence of synoptic weather type: (a) nationwide distribution of all city's mean temperatures for urban and rural stations during moist or dry weather types. %; each value represents the mean temperature for one city. 
+Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. (b) Sensitivity of temperature to synoptic weather conditions for rural (x-axis) versus urban areas (y-axis). The total least squares line is shown in solid black and the 1-1 line is dashed.
+}
+\label{fig:synoptic4}
+\end{figure}
+
+
+As shown in Fig.~\ref{fig:jja4}, the daily response to heat occurs primarily in rural rather than urban areas. To assess the sensitivity of urban and rural areas to weather type, we compare the moist-dry temperature difference in each city, $  \overline{T}_{u}( {moist} )  -  \overline{T}_{u}( {dry} ) $, 
+against that in each rural area, $\overline{T}_{r}( {moist} ) -  \overline{T}_{r}( {dry} ) $, in Fig.~\ref{fig:synoptic4}b. 
+In most regions there is a tendency for humid nights to be hotter than dry nights; this difference is significant in most cities (39/46 or 85\%).  
+That is, $T_{moist} > T_{dry}$ for both urban and rural environments.
+%While it may be expected that the response to synoptic weather would be indifferent to urban or rural location, 
+However, see that the values do not follow a one-to-one relationship. %, This represents sensitivity to synoptic weather type in each city,
+Rather, rural areas change substantially by weather type, whereas urban areas do not. During moist synoptic conditions there are higher rural temperatures rather than elevated urban temperatures, which leads to a lower $\Delta T$ during moist weather patterns. 
+As these humid weather patterns also tend to be the hottest, the role of synoptic conditions is critical to our result; individual hot events that evolve under less typical hot and dry conditions, or that are influenced by specific mesoscale circulations, may differ in characteristics. 
+
+Above, we have shown that $\Delta T$ decreases in response to daily temperature increases. This raises the possibility that changes over longer time scales in response to warmer conditions are possible. 
+%To test this, we compare the 15-year linear trend in JJA mean $T_r$, called $\beta_{T_r}$, to the same trend in $T_u$, $\beta_{T_u}$. We find that most urban and rural areas experience nighttime warming (46/54 or 85\%). 
+To test this, we compute the 15-year linear trend in JJA for $T_r$, called $\beta_{T_r}$, for $T_u$, $\beta_{T_u}$, and for $T_a$, $\beta_{{T_a}}$.  We find that most urban and rural areas experience nighttime warming (46/54 or 85\%). For each city the urban and rural trends are not similar ($r= 0.3$) and there is no significant difference between urban and rural trends as calculated by a Student's t-test ($p = 0.63$), in agreement with \cite{peterson2003assessment}. Nevertheless, we find that while urban temperatures warm at the same rate as average temperatures, rural temperatures do not (Fig.~\ref{fig:30yrtrend4}a,b).
+While 15 years is a limited time period, this result suggests that not only are urban areas not warming faster than rural areas, rural areas may in fact warm faster, though this effect is not significant over the time period measured. 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig05.eps}
+\caption{15-year linear trends for each city: (a) $\beta_{T_r}$ plotted versus $\beta_{ T_a}$ and (b)  $\beta_{T_u}$ plotted versus $\beta_{ T_a}$. The total least squares line is shown in solid black and the 1-1 line is dashed.
+% Error bars (gray) represent the standard deviation of possible $\beta_{\Delta T}$ values calculated by varying the rural stations used to calculate $\Delta T$.
+}
+\label{fig:30yrtrend4}
+\end{figure}
+
+% over space
+\begin{figure}
+\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig06.eps}
+\caption{15 year mean temperature for each city: (a) $\overline{T_r}$ versus $\overline{ T_u}$, b)$\overline{T_r}$ versus $\overline{ T_a}$, and $\overline{T_u}$ versus $\overline{ T_a}$.
+The total least squares line is shown in solid black and the 1-1 line is dashed.
+%Error bars represent the standard deviation of possible $\Delta T$ values calculated by varying the rural stations used to calculate $\Delta T$.  
+}
+\label{fig:meantemp4}
+\end{figure}
+
+
+Above we have shown that differences between $T_u$ and $T_r$ tend to diminish %with increasing $T_r$ 
+on a variety of time scales, which raises the question of how $T_u$ and $T_r$ varies between cities.
+ To investigate this, we compare the 2000-2015 JJA-mean rural temperature $\overline{T_r}$ with the JJA-mean urban temperaure $\overline{T}_{u}$ (Fig.~\ref{fig:meantemp4}a).  We see that $\overline{T}_u$ tends to be more similar to $\overline{T}_r$ for cities with larger $\overline{T}_{r}$, 
+ with a slope (sensitivity) of 0.85. %statistically significant slope (sensitivity) $\overline{ T_u}/\overline{T}_{r}$ = -0.68. 
+ That is, the UHI is generally smaller for warmer climates, with $T_u$ increasing on average by only 0.85$^\circ $C when comparing to a climate zone 1$^\circ$C warmer. Furthermore, while urban temperatures increase at the same rate as average temperature, rural temperature increase at a faster rate (Fig.~\ref{fig:meantemp4}b,c). 
+That is, when we compare one city to a warmer city, we find the increase in urban temperatures is similar to the increase in average temperature. The increase in rural temperatures, however, is more than the increase in average temperatures, resulting in a decreased $\Delta T$ for warmer cities. Thus, the tendency for a weaker $\Delta T$ under warmer conditions occurs not only on daily time-scales in individual cities but also between cities. 
+
+\section{Concluding remarks}
+
+We have compared daily maximum and minimum urban and rural temperatures using station observations from 54 US cities for 2000-2015, and shown that in most cities, the intensity of the UHI, $\Delta T$,  diminishes with warmer temperatures.  This holds over temporal scales---daily over the entire summer, during extreme heat---as well as across climate zones. For daily variability $T_u$ increases on average by only 0.88 $^\circ$C for every degree increase in $T_r$, while the average decrease of $T_u$ during extreme heat is 0.93 $^\circ$C. %for every degree increase in $T_r$. 
+On interannual timescales, we find that urban trends have a one-to-one relationship with average temperature trends, meaning the UHI has not increased with climate change, but do note that rural trends decreased slightly with increasing average trends. We relate the decrease in $\Delta T$ with larger $T_r$ to large-scale or synoptic weather conditions, and find that the lowest $\Delta T$ nights occur during moist conditions. Further, we find that across all time and space scales, our results are driven by changes in rural temperatures rather than urban temperatures, which appear less sensitive to both heat and weather type. 
+
+Our results differ from previous studies because we examine more cities, longer time periods, and more heat events. Conclusions of an increasing UHI during warmer temperatures were based on studies of single cities and single events. For example, the previous study of Baltimore \citep{li2013synergistic} only examined one heat event; we examine this event and others in addition to 15 years of daily data and find that the event in \cite{li2013synergistic} is atypical. We do find some individual cities for which UHI increases with warmer temperatures, however, in most cases, we find this to be related to the microclimate of the weather station, similar to \cite{zhou2010atlanta}. 
+%Additionally, we find that there are events for which UHI increases with warmer temperatures, but that these events are atypical. 
+
+The decrease in UHI intensity with warmer conditions has potentially important implications for accounting for urbanization in long term climate records, where it is often assumed that absent significant changes in urban extent, the urban and rural areas warm at the same rate \citep{hausfather2013quantifying,stone2012managing}.  Perhaps more importantly, it has implications for changes in the UHI as climate continues to warm as well as for economic projections of climate change impacts for cities \citep{estrada2017global}. 
+%The summer median $\Delta T$ is 1.75 $^\circ$C and the interannual sensitivity of $T_u$ to changes in $T_r$ is ~$0.3 ^\circ $C/$^\circ $C, 
+That warming areas did not experience any increase in urban heating indicates that the nighttime urban heat island has not been exacerbated by climate change.  Absent changes in synoptic weather patterns and urbanization, our results suggest that the urban heat island as defined by available weather stations may remain constant or possibly decline as background climate warms. Indeed, there is already a tendency for $T_r > T_u$ on the hottest nights for many cities (e.g., Fig. ~\ref{fig:hw4}d).
+
+We emphasize that our results do not mean that global warming will not affect cities, but rather that surrounding rural areas may warm faster than urban areas absent changes in urbanization.
+Furthermore, the moist weather types which we associate with low UHI nights, in particular the moist tropical weather type, are associated with elevated risks for mortality and morbidity  \citep{sheridan2004progress}, meaning that lower UHIs will not necessarily translate into lower health risks. 
+This is important for heat mitigation efforts, economic projections, and climate resiliency plans to take into account, as our results suggest that rural and suburban heat mitigation efforts may be more important than previously thought. Health analyses are concerned with physiologically relevant temperature thresholds, and our results indicate that assumptions of a constant or increasing urban heat may mischaracterize those risks.   
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS01.eps}
+%\caption{The difference between nighttime UHI $\Delta T_{min} $ and daytime $\Delta T_{max}$ is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. }
+%\label{fig:s01}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig01.eps} 
+%\caption{Left column: daily minimum 
+%$T_r$ versus 
+%$T_u$ for data from JJA 2000-2015 for 
+%a) Albuquerque, d) Minneapolis, and g) Baltimore. Middle column: daily-minimum $T_a$ versus $T_u$ for 
+%b) Albuquerque, e) Minneapolis, and h) Baltimore.
+%Right column: daily-minimum $T_a$ versus $T_r$ for 
+%c) Albuquerque, f) Minneapolis, and i) Baltimore.
+%The solid line shows the total least squares fit to the data with slope $m_{daily}$ and dashed line shows the 1-1 line.  
+%
+%%(g) Map of cities analyzed, with color showing the slope $m$. 
+%}
+%\label{fig:jja4}
+%\end{figure}
+
+%% JJA results figure
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig02.eps} 
+%\caption{
+%Histograms of $m_{daily}$, slope of $T_u$ versus $T_r$ relationship  for (a) June, July, August (JJA) daily minimum temperatures, (b) JJA anomaly daily minimum temperatures, (c) JJA daily maximum temperatures, (d) December, January, February (DJF) daily minimum temperatures, (e) March, April, May (MAM) daily-minimum temperatures, and (f) September, October, November (SON) daily-minimum temperatures.  The distribution mean $\overline{m}_{daily}$ and range are listed in each plot.  
+%}
+%\label{fig:histogram4}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS02.eps}
+%\caption{As in Fig.~\ref{fig:s01} but for the distribution of $m_{daily}$. %is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. 
+%\label{fig:s02}
+%}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS03.eps}
+%\caption{Distribution of slope $m_{day}$ in each city when urban station selection is varied. Cities are ordered by increasing mean urban station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. }
+%\label{fig:s03}
+%\end{figure}
+%
+%%S3
+%%rural slope sensitivity analysis
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS04.eps}
+%\caption{As in Fig.~\ref{fig:s03} but for varying rural station selection. Cities are ordered by increasing mean rural station temperature going left to right.
+%%Distribution of slope $m_{day}$ in each city when rural station selection is varied by dropping the data availability requirement for rural stations. Cities are ordered by increasing mean rural station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. 
+%\label{fig:s04}
+%}
+%\end{figure}
+
+%% heatwave figure
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig03.eps} 
+%
+%%\includegraphics[width=.9\textwidth]{rnw_chapter3/figures/figure2a_2d.eps}
+%%\includegraphics[width=.9\textwidth]{rnw_chapter3/figures/figure2e_2f.eps}
+%%\includegraphics[width = .9\textwidth]{rnw_chapter3/figures/figures/avg_hw_map.pdf}
+%\caption{Heat events: a) temporal evolution of $T_a$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_a$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+%% The sensitivity of $T_u$ to $T_r$ on the 150 hottest nights for each city, $m_{hw}$, is  e) mapped and f) as a histogram. Cities for which $p>0.05$ have a smaller radius.
+%}
+%\label{fig:hw4}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS05.eps}
+%\caption{As in Fig.~\ref{fig:s01} but for the temperature change of $\Delta T$ during heat events ($\Delta T$ on heat event day zero minus $\Delta T$ four days prior). %as a) map and b) histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed.
+%\label{fig:s05}
+% }
+%\end{figure}
+%
+%% Heatwaves selected using T_u
+%% S4
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS06.eps}
+%\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_u$. %: a) Temporal evolution of $T_u$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_u$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+%\label{fig:s06}
+%}
+%\end{figure}
+%
+%% Heatwaves selected using T_r
+%% S5
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS07.eps}
+%\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_r$. 
+%%: a) Temporal evolution of $T_r$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_r$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+%\label{fig:s07}
+%}
+%\end{figure}
+%
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS08.eps}
+%\caption{As in Fig.~\ref{fig:s07} but for 15 heat events selected using PC1, the first principal component of $T_u$ and $T_r$. %: a) Temporal evolution of PC1 during events for Baltimore (colors) and their mean (dashed black line), b) Temporal evolution of $T_r$ for the 15 events for Baltimore (colors) and their mean (dashed black line) and c) temporal evolution of $\Delta T$ for those events. d) Temporal evolution of PC1 averaged across the events for each city and the sample mean (heavy black line), e) Temporal evolution of $T_r$ averaged across the events for each city and the sample mean (heavy black line), and (f) as in (c) and (d) but for $\Delta T$. 
+%\label{fig:s08}
+%}
+%\end{figure}
+
+%Synoptic weather figure
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig04.eps}
+%\caption{Influence of synoptic weather type: a) nationwide distribution of all city's mean temperatures for urban and rural stations during moist or dry weather types. %; each value represents the mean temperature for one city. 
+%Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. b) Sensitivity of temperature to synoptic weather conditions for rural (x-axis) versus urban areas (y-axis). The total least squares line is shown in solid black and the 1-1 line is dashed.
+%
+%%, calculated by subtracting the average temperature of moist days from that of dry days in each city, or $\overline{T_{r}( {moist}) } -  \overline{T_{r}( {dry} ) }$ versus $\overline{T_{u}( {moist} ) } -  \overline{T_{u}( {dry} ) }$. 
+%%Positive values indicate that on average, moist days are hotter than dry days in a given city. 
+%}
+%\label{fig:synoptic4}
+%\end{figure}
+
+% does UHI decrease over time? figure
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig05.eps}
+%\caption{15-year linear trends for each city: a) $\beta_{T_r}$ plotted versus $\beta_{ T_a}$ and b)  $\beta_{T_u}$ plotted versus $\beta_{ T_a}$. The total least squares line is shown in solid black and the 1-1 line is dashed.
+%% Error bars (gray) represent the standard deviation of possible $\beta_{\Delta T}$ values calculated by varying the rural stations used to calculate $\Delta T$.
+%}
+%\label{fig:30yrtrend4}
+%\end{figure}
+%
+%% over space
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/fig06.eps}
+%\caption{15 year mean temperature for each city: a) $\overline{T_r}$ versus $\overline{ T_u}$, b)$\overline{T_r}$ versus $\overline{ T_a}$, and $\overline{T_u}$ versus $\overline{ T_a}$.
+%The total least squares line is shown in solid black and the 1-1 line is dashed.
+%%Error bars represent the standard deviation of possible $\Delta T$ values calculated by varying the rural stations used to calculate $\Delta T$.  
+%}
+%\label{fig:meantemp4}
+%\end{figure}
+
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS01.eps}
+%\caption{The difference between nighttime UHI $\Delta T_{min} $ and daytime $\Delta T_{max}$ is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. }
+%\label{fig:s01}
+%\end{figure}
+
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS02.eps}
+%\caption{As in Fig.~\ref{fig:s01} but for the distribution of $m_{daily}$. %is plotted for each city as a (a) map and (b) as a histogram. The color scale is as indicated by the histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed. 
+%\label{fig:s02}
+%}
+%\end{figure}
+
+%S2
+%urban slope sensitivity analysis
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS03.eps}
+%\caption{Distribution of slope $m_{day}$ in each city when urban station selection is varied. Cities are ordered by increasing mean urban station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. }
+%\label{fig:s03}
+%\end{figure}
+%
+%%S3
+%%rural slope sensitivity analysis
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS04.eps}
+%\caption{As in Fig.~\ref{fig:s03} but for varying rural station selection. Cities are ordered by increasing mean rural station temperature going left to right.
+%%Distribution of slope $m_{day}$ in each city when rural station selection is varied by dropping the data availability requirement for rural stations. Cities are ordered by increasing mean rural station temperature going left to right. Boxes indicate the middle two quartiles (Q2 and Q3), red lines indicate the mean, and whiskers represent the wide interquartile range (1.5*(Q3-Q2)). Crosses indicate data points beyond this range, that is, statistical outliers. The gray line denotes the mean of all cities $m_{daily}$. 
+%\label{fig:s04}
+%}
+%\end{figure}
+
+%Delta HW plots
+%S4
+%JJA results
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS05.eps}
+%\caption{As in Fig.~\ref{fig:s01} but for the temperature change of $\Delta T$ during heat events ($\Delta T$ on heat event day zero minus $\Delta T$ four days prior). %as a) map and b) histogram. The mean $\mu$, standard deviation $\sigma$, and range are listed.
+%\label{fig:s05}
+% }
+%\end{figure}
+%
+%% Heatwaves selected using T_u
+%% S4
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS06.eps}
+%\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_u$. %: a) Temporal evolution of $T_u$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_u$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+%\label{fig:s06}
+%}
+%\end{figure}
+%
+%% Heatwaves selected using T_r
+%% S5
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS07.eps}
+%\caption{As in Fig.~\ref{fig:hw4} but for heat events selected using $T_r$. 
+%%: a) Temporal evolution of $T_r$ for the 15 hottest nights  for Baltimore (colors) and their mean (dashed black line) and b) temporal evolution of $\Delta T$ for those events. c) Temporal evolution of $T_r$ averaged across the ten hottest events for each city and the sample mean (heavy black line), and (d) as in (c) but for $\Delta T$. 
+%\label{fig:s07}
+%}
+%\end{figure}
+%
+%\begin{figure}
+%\includegraphics[width = \textwidth]{rnw_chapter3/figures/figS08.eps}
+%\caption{As in Fig.~\ref{fig:s07} but for 15 heat events selected using PC1, the first principal component of $T_u$ and $T_r$. %: a) Temporal evolution of PC1 during events for Baltimore (colors) and their mean (dashed black line), b) Temporal evolution of $T_r$ for the 15 events for Baltimore (colors) and their mean (dashed black line) and c) temporal evolution of $\Delta T$ for those events. d) Temporal evolution of PC1 averaged across the events for each city and the sample mean (heavy black line), e) Temporal evolution of $T_r$ averaged across the events for each city and the sample mean (heavy black line), and (f) as in (c) and (d) but for $\Delta T$. 
+%\label{fig:s08}
+%}
+%\end{figure}

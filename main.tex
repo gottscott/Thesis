@@ -1,0 +1,123 @@
+\documentclass[12pt]{report}
+
+%% This was the setup recommended at https://github.com/weitzner/jhu-thesis-template
+% \documentclass[12pt,oneside,final]{thesis}
+
+\pdfminorversion=4\relax
+\pdfobjcompresslevel=0\relax
+%% Followed the information from https://www.overleaf.com/latex/examples/creating-pdf-slash-a-and-pdf-slash-x-files/bbbycnbyqhnm#.Vw6_XBMrLm1 to create a PDF/A file in Overleaf
+\usepackage[a-1b]{pdfx} % Need this to create a PDF/A file
+
+
+\usepackage{pdfpages}
+
+\pagestyle{myheadings}
+%\topmargin=0.25in
+\topmargin=0.05in
+\textheight=8.15in
+\textwidth=5.6in
+\oddsidemargin=0.7in
+\raggedbottom
+\newdimen \jot \jot=5mm
+\brokenpenalty=10000
+ 
+
+%\usepackage[utf8]{inputenc} % Seems to cause a conflict with fontenc and lmodern
+%\DeclareUnicodeCharacter{00A0}{ }
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % load a font with all the characters
+%\usepackage{hyperref}
+\usepackage{tocbibind} % need this to contents adding for TOC
+\usepackage{setspace}
+\setstretch{1.05}
+\usepackage{RJournal_nogeom} % Changes the colors of links among other things
+%\usepackage[all]{hypcap}
+\usepackage[hypcap=true]{caption}
+\hypersetup{linktocpage}
+\usepackage{amsmath,amssymb,array}
+\usepackage{booktabs}
+\usepackage{subfig}
+
+%% load any required packages here
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{graphics} 
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,arrows}
+\usepackage{dcolumn}
+
+%%%% bibliography
+\bibliographystyle{agufull08}
+\usepackage[authoryear]{natbib}
+
+\begin{document}
+
+%% template stuff 
+%
+\newcommand{\bm}[1]{ \mbox{\boldmath $ #1 $} }
+\newcommand{\bin}[2]{\left(\begin{array}{@{}c@{}} #1 \\ #2
+             \end{array}\right) }
+\renewcommand{\contentsname}{Table of Contents}
+\baselineskip=24pt
+ 
+% Create cover page of dissertation !
+\pagenumbering{roman}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{.25in}
+{\bf\LARGE{ Improved Understanding of the Urban Heat Island through Observations and Models }}\\ % change it accordingly!
+\vspace*{.75in}
+{\bf by} \\*[18pt]
+\vspace*{.2in}
+{\bf Anna A. Scott}\\ % change it accordingly!
+\vspace*{1in}
+{\bf A dissertation submitted to The Johns Hopkins University\\
+in conformity with the requirements for the degree of\\
+Doctor of Philosophy }\\
+\vspace*{.75in}
+{\bf Baltimore, Maryland} \\
+{\bf May, 2018} \\     % change it accordingly!
+\vspace*{.5in}
+\begin{small}
+{\bf \copyright{ }2018 by Anna A. Scott} \\ % change the year if needed!
+{\bf All rights reserved}
+\end{small}
+\end{center}
+\newpage 
+
+% Add acknowledgements
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{2}
+\include{abstract/abstract}
+\include{committee/committee}
+\include{acknowledgments/acknowledgments}
+
+%\cleardoublepage
+%\newpage 
+\pagestyle{plain}
+\baselineskip=24pt
+\tableofcontents
+% for the three lines below, change the page numbers if needed!
+% these are commented out on the template
+%\addtocontents{toc}{\contentsline{chapter}{Table of Contents}{iii}}
+%\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}Table of Contents}{iii}}
+%\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}List of Tables}{iv}}
+%\addtocontents{toc}{\protect\contentsline{chapter}{\protect\numberline{}List of Figures}{v}}
+\listoftables
+\listoffigures
+
+\cleardoublepage % Needed because our intro chapter doesn't really have anything
+\pagenumbering{arabic}
+
+\include{intro_chapter}
+\include{baltimore-chapter}
+\include{nairobi-chapter}
+\include{hw-chapter}
+\include{baltimore2-chapter}
+\include{conclusion_chapter}
+\bibliography{thesis}
+%\addcontentsline{toc}{chapter}{Bibliography}
+\includepdf[pages={-}]{annascottcv.pdf}
+\end{document}
