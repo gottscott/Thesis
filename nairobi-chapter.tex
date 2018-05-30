@@ -33,6 +33,7 @@ In this chapter, we ask if informal settlements are hotter than the central moni
 A network of Ibutton sensors (Fig. \ref{schematic}) installed in three geospatially diverse Nairobi informal settlements (slums), Kibera, Mathare and Mukuru, provided the datasets used in this paper. Kibera is the largest informal settlements in Kenya and is situated southwest of Nairobi. Many houses in Kibera are densely built and accessed through narrow, unpaved paths. The primary construction materials comprise of galvanized iron sheet roofs, mud walls and concrete floors. There also exist gated concrete houses and flats with a mixture of asbestos and galvanized iron sheet roof tops built by the County Council of Nairobi. The second slum, Mathare, is located to the north east of Nairobi in a valley along Mathare River. The houses in Mathare are characterized by walls and roofs made of galvanized iron sheets. The houses are closely built leaving narrow access paths to people's houses with little ventilation. A few sensors were also placed in the Mathare North neighborhood characterized by apartment buildings or flats, which are five to six stories high. The final slum, Mukuru, is located to the south east of Nairobi adjacent to the main industrial zone. The houses in this neighborhood are a mixture of a few high rise buildings and houses constructed from galvanized iron sheets (both walls and roofs), housing a significant number of people working within the surrounding industries.
 % Figure 2: Photos of sensors, picture of neighborhood, picture of met office 
 \begin{figure}[!h]
+\centering
 \includegraphics[width=.4\linewidth]{rnw_chapter2/figures/fig2.eps}
 \caption{Schematic. A schematic of the iButton and radiation shield.}
 \label{schematic}
@@ -42,6 +43,7 @@ A network of Ibutton sensors (Fig. \ref{schematic}) installed in three geospatia
 We use Dagoretti's daily minimum temperature from 1984 to 2014 to compute long-term climatological means for each day and Dagoretti's sub-daily data (maximum and minimum temperature) from 2016 for temperature and relative humidity to validate the iButton data. The iButton thermometer/hygrometers, a product of Maxim Integrated, have an onboard data logger and are accurate to $0.5^\circ C$ degrees. The sensors were housed in a custom, naturally aspirated radiation shield made of WhiteOptics White98 Reflector Film and the ensemble was attached with zip-ties to the eaves of houses, posts, and trees (Fig.~\ref{schematic}). 
 
 \begin{figure}
+\centering
 \includegraphics[width=.9\linewidth]{rnw_chapter2/figures/fig3.eps}
 \caption{The iButton thermometer/hygrometer installed \textit{in situ}. a) shows the central monitoring site at the Kenya Meteorological Department headquarters and b) shows a typical household in the Kibera neighborhood. }
 \label{photos}
@@ -81,14 +83,16 @@ Here, we use $j=2$. We also calculate the mean difference in temperature and rel
 \begin{table}
 \centering
 \begin{tabular}{ l | c | c | c | c }
-     time & PBIAS & MIOA & Mean Dif. & Days Available\\ \hline
+\toprule
+     time & PBIAS & MIOA & Mean Dif. & Days Available\\ 
+     \midrule
     9am &  3.69 & 0.83 & 0.86 & 80 \\ 
     3pm & 5.507 & 0.741 & 1.79 & 51\\
     $T_{min}$ &  0.19 & 0.877 & 0.16 & 79\\
     $T_{max}$ & 10.60 & 0.39 & 3.2 & 11\\
     RH 9am & 2.02 & 0.96 & 1.89 & 80\\
     RH 3pm &-1.06  & 0.99 & -0.71 & 51\\ 
-    \hline
+    \bottomrule
 \end{tabular}
 
 \caption{PBIAS, MIOA and mean difference for temperature and humidity measurements with respect to KMD instruments as well as the number of days the KMD data was available. The total observation period is 80 days.}
@@ -132,6 +136,7 @@ Monitors have a mean difference of $\Delta T_{min} = 1.83^\circ C$ and $ \Delta 
 
 % Figure 4: Mean min and max temp 
 \begin{figure}
+\centering
 \includegraphics[width=.9\linewidth]{rnw_chapter2/figures/fig5.eps}
 \caption{%{\bf Mean  temperature by location. }
 Mean temperature for a) minimum daily temperature and b) maximum daily temperature for each sensor for summer 2015-2016 in Nairobi. }
@@ -156,6 +161,7 @@ The daytime spatial variability is highest in Kibera and Mukuru, peaking at $\si
 
 % Figure7: Diurnal temperature 
 \begin{figure}
+\centering
 \includegraphics[width=.9\linewidth]{rnw_chapter2/figures/fig7.eps}
 \caption{%{\bf Mean  temperature by hour. }
 Diurnal cycle of a) mean hourly temperature in each neighborhood and b) mean heat index by neighborhood. Error bars show the sensor-to-sensor standard deviation, representing spatial variability. }
